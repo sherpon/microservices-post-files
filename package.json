@@ -1,0 +1,27 @@
+{
+  "name": "postfiles",
+  "version": "1.0.0",
+  "description": "## 1. Deploy",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpon/microservices-post-files.git"
+  },
+  "author": "Bruce Grover Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherpon/microservices-post-files/issues"
+  },
+  "homepage": "https://github.com/sherpon/microservices-post-files#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^2.2.0",
+    "@google-cloud/storage": "^2.5.0",
+    "axios": "^0.19.0"
+  }
+}
