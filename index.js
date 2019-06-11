@@ -87,7 +87,7 @@ const getTokenStep = (req, res) => {
     // populate it
     req.userToken = myAuthentication.token;
     getAuthorizationStep(req, res);
-    // createNewWebsiteStep(req, res); /** IMPORTANT */
+    // saveAttributesStep(req, res); /** IMPORTANT */
   }
 };
 
