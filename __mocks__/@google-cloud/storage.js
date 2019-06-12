@@ -4,4 +4,24 @@
 
 const { Storage } = jest.genMockFromModule('@google-cloud/storage');
 
-module.exports = Storage;
+class mockStorage extends Storage {
+  constructor(opt) {
+    super(opt);
+  }
+
+  bucket() {
+    return {
+      file: function () {
+        return {
+          copy: function () {
+            return new Promise((resolve, reject) => {
+              resolve();
+            });
+          }
+        };
+      },
+    };
+  }
+};
+
+exports.Storage = mockStorage;

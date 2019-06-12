@@ -26,6 +26,8 @@ const saveSourceCodeStep = async (req, res) => {
       id: fileId,
       createdAt: new Date(fileTimestamp._seconds * 1000),
     });
+    // console.log('debugger');
+    // console.log(fileTimestamp);
   } catch (error) {
     console.error(error);
     res.status(401);

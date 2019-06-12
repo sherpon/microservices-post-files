@@ -10,12 +10,23 @@ let __mockObjectRef = {
 const __setMockObjectRef = (newObjectRef) => {
   __mockObjectRef = newObjectRef;
 };
-Firestore.__setMockObjectRef = __setMockObjectRef;
+
+const reference = {
+  collection: function () {
+    return {
+      add: function () {
+        return new Promise((resolve, reject) => {
+          resolve(__mockObjectRef);
+        });
+      },
+    };
+  },
+};
 
 const collection = function () {
   return {
     doc: function () {
-      return collection;
+      return reference;
     },
     add: function () {
       return new Promise((resolve, reject) => {
@@ -25,6 +36,23 @@ const collection = function () {
   };  
 };
 
-Firestore.collection = collection;
+class mockFirestore extends Firestore {
+  constructor(opt) {
+    super(opt);
+  }
 
-module.exports = Firestore;
+  collection() {
+    return collection();
+  }
+}
+
+mockFirestore.__setMockObjectRef = __setMockObjectRef;
+mockFirestore.Timestamp = {
+  now: function () {
+    return { 
+      _seconds: 1559856428, 
+      _nanoseconds: 858000000 
+    };
+  }
+};
+module.exports = mockFirestore;

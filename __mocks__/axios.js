@@ -10,7 +10,9 @@ const __setMockResponse = (newMockResponse) => {
 };
 
 axios = (options) => {
-  return new Promise((resolve, reject) => {});
+  return new Promise((resolve, reject) => {
+    resolve(__mockResponse);
+  });
 };
 
 axios.__setMockResponse = __setMockResponse;
