@@ -15,7 +15,7 @@ class mockStorage extends Storage {
         return {
           copy: function () {
             return new Promise((resolve, reject) => {
-              resolve();
+              resolve(true);
             });
           }
         };

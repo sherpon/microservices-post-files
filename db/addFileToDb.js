@@ -1,16 +1,17 @@
 
-const addFileToDb = (firestore, websiteId, type, filename, timestamp, url, title) => {
+const addFileToDb = async (firestore, websiteId, type, filename, timestamp, url, title) => {
   const websiteRef = firestore.collection('websites').doc(websiteId);
   switch (type) {
     case 'template':
+      console.log('addFileToDb: template');
       return websiteRef.collection('files').add({
         type: type,
         filename: filename,
         createdAt: timestamp,
       });
-      break;
 
     case 'page':
+      console.log('addFileToDb: page 1');  
       return websiteRef.collection('files').add({
         type: type,
         filename: filename,
@@ -23,11 +24,10 @@ const addFileToDb = (firestore, websiteId, type, filename, timestamp, url, title
         scripts:'',
         styles:'',
       });
-      break;
   
     default:
+        console.log('addFileToDb: default');
       return;
-      break;
   }
 };
 

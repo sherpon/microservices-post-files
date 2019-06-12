@@ -26,8 +26,6 @@ const saveSourceCodeStep = async (req, res) => {
       id: fileId,
       createdAt: new Date(fileTimestamp._seconds * 1000),
     });
-    // console.log('debugger');
-    // console.log(fileTimestamp);
   } catch (error) {
     console.error(error);
     res.status(401);
@@ -65,7 +63,7 @@ const getAuthorizationStep = async (req, res) => {
     const response = await getAuthorization(token, userId, websiteId);
     if (response.status===202) {
       // authorized
-      saveAttributesStep(req, res);
+      await saveAttributesStep(req, res);
     } else {
       // unauthorized
       console.log('the user ' + userId + ' is unauthorized');
@@ -79,7 +77,7 @@ const getAuthorizationStep = async (req, res) => {
   }
 };
 
-const getTokenStep = (req, res) => {
+const getTokenStep = async (req, res) => {
   const myAuthentication = getToken(req.headers);
   if (myAuthentication===false) {
     // didn't find any token
@@ -88,7 +86,7 @@ const getTokenStep = (req, res) => {
   } else {
     // populate it
     req.userToken = myAuthentication.token;
-    getAuthorizationStep(req, res);
+    await getAuthorizationStep(req, res);
     // saveAttributesStep(req, res); /** IMPORTANT */
   }
 };
@@ -103,7 +101,7 @@ const getTokenStep = (req, res) => {
  * @param {Object} res Cloud Function response context.
  *                     More info: https://expressjs.com/en/api.html#res
  */
-exports.postFiles = (req, res) => {
+exports.postFiles = async (req, res) => {
   // const token = req.userToken;
   // const userId = req.query.userId;
   // const websiteId = req.query.websiteId;
@@ -131,6 +129,6 @@ exports.postFiles = (req, res) => {
     res.status(204)
     res.end();
   } else {
-    getTokenStep(req, res);
+    await getTokenStep(req, res);
   }
 };

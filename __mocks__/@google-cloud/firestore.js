@@ -23,26 +23,22 @@ const reference = {
   },
 };
 
-const collection = function () {
-  return {
-    doc: function () {
-      return reference;
-    },
-    add: function () {
-      return new Promise((resolve, reject) => {
-        resolve(__mockObjectRef);
-      });
-    },
-  };  
-};
-
 class mockFirestore extends Firestore {
   constructor(opt) {
     super(opt);
   }
 
   collection() {
-    return collection();
+    return {
+      doc: function () {
+        return reference;
+      },
+      add: function () {
+        return new Promise((resolve, reject) => {
+          resolve(__mockObjectRef);
+        });
+      },
+    };
   }
 }
 
