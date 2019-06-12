@@ -3,7 +3,6 @@ const addFileToDb = async (firestore, websiteId, type, filename, timestamp, url,
   const websiteRef = firestore.collection('websites').doc(websiteId);
   switch (type) {
     case 'template':
-      console.log('addFileToDb: template');
       return websiteRef.collection('files').add({
         type: type,
         filename: filename,
@@ -11,22 +10,21 @@ const addFileToDb = async (firestore, websiteId, type, filename, timestamp, url,
       });
 
     case 'page':
-      console.log('addFileToDb: page 1');  
       return websiteRef.collection('files').add({
         type: type,
         filename: filename,
         createdAt: timestamp,
         url,
-        keywords:'',
         title,
+        keywords:'',
         description:'',
+        themeColor: '',
         meta:'',
-        scripts:'',
-        styles:'',
+        script:'',
+        style:'',
       });
   
     default:
-        console.log('addFileToDb: default');
       return;
   }
 };
