@@ -23,7 +23,6 @@ const saveSourceCodeStep = async (req, res) => {
     await copyFileFromSource(storage, /* sourceFile */ `${type}.ejs`, websiteId, `${type}s/${filename}`);
     res.status(201);  // send CREATED
     res.send({
-      id: fileId,
       createdAt: new Date(fileTimestamp._seconds * 1000),
     });
   } catch (error) {
