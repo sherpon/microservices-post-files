@@ -3,16 +3,14 @@ const addFileToDb = async (firestore, websiteId, type, filename, timestamp, url,
   const websiteRef = firestore.collection('websites').doc(websiteId);
   switch (type) {
     case 'template':
-      return websiteRef.collection('files').add({
+      return websiteRef.collection('files').doc(filename).add({
         type: type,
-        filename: filename,
         createdAt: timestamp,
       });
 
     case 'page':
-      return websiteRef.collection('files').add({
+      return websiteRef.collection('files').doc(filename).add({
         type: type,
-        filename: filename,
         createdAt: timestamp,
         url,
         title,

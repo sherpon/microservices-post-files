@@ -16,11 +16,11 @@ let storage;
 const saveSourceCodeStep = async (req, res) => {
   try {
     const websiteId = req.query.websiteId;
-    const fileId = req.websiteFileId;
+    const filename = req.body.filename;
     const fileTimestamp = req.websiteFileCreatedAt;
     const type = req.body.type;
     storage = getStorage(storage);
-    await copyFileFromSource(storage, /* sourceFile */ `${type}.ejs`, websiteId, `${type}s/${fileId}`);
+    await copyFileFromSource(storage, /* sourceFile */ `${type}.ejs`, websiteId, `${type}s/${filename}`);
     res.status(201);  // send CREATED
     res.send({
       id: fileId,
@@ -44,8 +44,7 @@ const saveAttributesStep = async (req, res) => {
     firestore = getFirestore(firestore);
     // now() returns an object like this { "_seconds": 1559856428, "_nanoseconds": 858000000 }
     const timestamp = Firestore.Timestamp.now();
-    const fileRef = await addFileToDb(firestore, websiteId, /* fileType */ type, /* filename */ filename, timestamp, url, title);
-    req.websiteFileId = fileRef.id;
+    await addFileToDb(firestore, websiteId, /* fileType */ type, /* filename */ filename, timestamp, url, title);
     req.websiteFileCreatedAt = timestamp;
     saveSourceCodeStep(req, res);
   } catch (error) {
