@@ -19,6 +19,20 @@ const reference = {
           resolve(__mockObjectRef);
         });
       },
+      set: function () {
+        return new Promise((resolve, reject) => {
+          resolve(__mockObjectRef);
+        });
+      },
+      doc: function () {
+        return {
+          set: function () {
+            return new Promise((resolve, reject) => {
+              resolve(__mockObjectRef);
+            });
+          },
+        };
+      },
     };
   },
 };
